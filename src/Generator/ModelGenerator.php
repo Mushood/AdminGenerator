@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Generator;
+namespace Sleekcube\AdminGenerator\Generator;
 
-use App\Helpers\StringManipulator;
-use App\Helpers\Pluraliser;
+use Sleekcube\AdminGenerator\Helpers\StringManipulator;
+use Sleekcube\AdminGenerator\Helpers\Pluraliser;
 
 class ModelGenerator extends CreateGenerator
 {

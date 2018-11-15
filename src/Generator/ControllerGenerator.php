@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Generator;
+namespace Sleekcube\AdminGenerator\Generator;
 
-use App\Helpers\StringManipulator;
+use Sleekcube\AdminGenerator\Helpers\StringManipulator;
 
 class ControllerGenerator extends CreateGenerator
 {

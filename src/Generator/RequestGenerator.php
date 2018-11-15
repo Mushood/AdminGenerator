@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Generator;
+namespace Sleekcube\AdminGenerator\Generator;
 
-use App\Helpers\Pluraliser;
+use Sleekcube\AdminGenerator\Helpers\Pluraliser;
 
 class RequestGenerator extends CreateGenerator
 {

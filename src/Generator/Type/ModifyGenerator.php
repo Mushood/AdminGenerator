@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Generator;
+namespace Sleekcube\AdminGenerator\Generator;
 
-use App\Generator\Traits\RelationSchemaTrait;
+use Sleekcube\AdminGenerator\Generator\Traits\RelationSchemaTrait;
 
 abstract class ModifyGenerator extends Generator
 {

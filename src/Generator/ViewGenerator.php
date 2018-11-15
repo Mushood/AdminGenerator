@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Generator;
+namespace Sleekcube\AdminGenerator\Generator;
 
-use App\Helpers\StringManipulator;
+use Sleekcube\AdminGenerator\Helpers\StringManipulator;
+use Sleekcube\AdminGenerator\Helpers\Pluraliser;
 use Illuminate\Support\Facades\File;
-use App\Helpers\Pluraliser;
 
 class ViewGenerator extends ModifyGenerator
 {
@@ -556,7 +556,7 @@ class ViewGenerator extends ModifyGenerator
 
     /**
      * Getter
-     * 
+     *
      * @return String
      */
     public function getTable()

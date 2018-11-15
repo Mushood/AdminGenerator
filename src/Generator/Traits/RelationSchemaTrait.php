@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Generator\Traits;
+namespace Sleekcube\AdminGenerator\Generator\Traits;
 
 use App\Helpers\Pluraliser;
 

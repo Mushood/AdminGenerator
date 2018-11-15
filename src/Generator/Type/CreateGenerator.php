@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Generator;
+namespace Sleekcube\AdminGenerator\Generator;
 
-use App\Generator\Traits\RelationSchemaTrait;
-use App\Helpers\StringManipulator;
-use App\Helpers\Pluraliser;
+use Sleekcube\AdminGenerator\Generator\Traits\RelationSchemaTrait;
+use Sleekcube\AdminGenerator\Helpers\StringManipulator;
+use Sleekcube\AdminGenerator\Helpers\Pluraliser;
 
 abstract class CreateGenerator implements GeneratorInterface
 {
     use RelationSchemaTrait;
-    
+
     /**
      * @var String
      */
