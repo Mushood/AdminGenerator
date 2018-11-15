@@ -42,6 +42,7 @@ class SetupCommand extends Command
         $currentDirectory = dirname(__FILE__);
         $projectDirectory = getcwd();
 
+        //copy locale middleware
         $source = $currentDirectory . "/../Snippets/middleware/Locale.php";
         $destination = $projectDirectory . "/app/Http/Middleware/Locale.php";
         copy($source,$destination);

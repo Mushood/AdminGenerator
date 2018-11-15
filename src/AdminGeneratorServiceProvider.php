@@ -16,6 +16,9 @@ class AdminGeneratorServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Commands\SetupCommand::class,
+                Commands\GenerateSingular::class,
+                Commands\GenerateBelongTo::class,
+                Commands\GenerateTranslation::class,
             ]);
         }
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Sleekcube\AdminGenerator\Commands;
 
-use App\Generator\GeneratorFactory;
+use Sleekcube\AdminGenerator\Generator\GeneratorFactory;
 use Illuminate\Console\Command;
 
 class GenerateBelongTo extends Command
