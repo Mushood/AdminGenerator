@@ -49,6 +49,7 @@ class SetupCommand extends Command
         $this->copyMiddleware();
         $this->createModelsDirectory();
         $this->createTransformerDirectory();
+        $this->createRequestDirectory();
 
         $this->info("Sleekcube Setup Done");
     }
@@ -82,6 +83,14 @@ class SetupCommand extends Command
         $transformerDirectory = $this->projectDirectory . "/app/Transformers";
         if (!is_dir($transformerDirectory)) {
             mkdir($transformerDirectory);
+        }
+    }
+
+    private function createRequestDirectory()
+    {
+        $requestDirectory = $this->projectDirectory . "/app/Http/Requests";
+        if (!is_dir($requestDirectory)) {
+            mkdir($requestDirectory);
         }
     }
 }
