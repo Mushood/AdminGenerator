@@ -1,0 +1,9 @@
+<quill-editor
+:content='entitygenerator.entitycolumn'
+:options='quilleditorOption'
+ref='myTextEditor'
+@change='onEditorChange($event)'
+class='edi'
+v-model='entitygenerator.entitycolumn'
+id='entitycolumn'
+></quill-editor>

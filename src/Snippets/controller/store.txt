@@ -1,0 +1,10 @@
+public function store(EntitygeneratorValidator $request)
+{
+$validatedEntitygenerator = $request->validated();
+$mappedEntitygenerator = $this->transformer->conform($validatedEntitygenerator['entitygenerator']);
+$entitygenerator = Entitygenerator::create($mappedEntitygenerator);
+$entitygenerator = fractal($entitygenerator, $this->transformer);
+
+return response()->json($entitygenerator, Response::HTTP_CREATED);
+}
+

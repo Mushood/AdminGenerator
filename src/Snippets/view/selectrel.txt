@@ -1,0 +1,1 @@
+<select id="entitycolumn" :class="{ 'form-control': true, 'form-danger': errors.first('entitycolumn') }" v-model="tablename.entitycolumn" name="entitycolumn"

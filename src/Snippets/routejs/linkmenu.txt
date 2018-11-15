@@ -1,0 +1,5 @@
+{
+        name: 'Entitygenerator',
+        link: '/entitygenerator',
+        icon: 'fa fa-clone'
+    },

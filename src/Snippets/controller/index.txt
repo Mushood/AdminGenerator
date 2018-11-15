@@ -1,0 +1,8 @@
+public function index()
+{
+$entitygenerators = Entitygenerator::orderby('created_at', 'desc')->paginate(self::PAGINATION);
+$entitygenerators = fractal($entitygenerators, $this->transformer);
+
+return response()->json($entitygenerators, Response::HTTP_OK);
+}
+

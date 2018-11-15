@@ -1,0 +1,6 @@
+public function show(Entitygenerator $entitygenerator)
+{
+$entitygenerator = fractal($entitygenerator, $this->transformer);
+
+return response()->json($entitygenerator, Response::HTTP_OK);
+}

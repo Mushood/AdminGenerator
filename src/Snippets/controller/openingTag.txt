@@ -1,0 +1,6 @@
+class EntitygeneratorController extends Controller
+{
+const PAGINATION = 12;
+
+protected $transformer;
+

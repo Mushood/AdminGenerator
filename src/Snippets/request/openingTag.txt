@@ -1,0 +1,3 @@
+class EntitygeneratorValidator extends FormRequest
+{
+

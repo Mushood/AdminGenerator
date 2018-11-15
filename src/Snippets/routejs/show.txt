@@ -1,0 +1,7 @@
+{
+        path: '/entitygenerator/:slug',
+        component: resolve => require(['pages/entitygenerator/create'], resolve),
+        meta: {
+            title: 'Edit Entitygenerator',
+        }
+    },

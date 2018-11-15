@@ -1,0 +1,8 @@
+/**
+* @param Entitygeneratory $entitygenerator
+*
+* @return array
+*/
+public function transform(Entitygenerator $entitygenerator)
+{
+return [

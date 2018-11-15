@@ -1,0 +1,10 @@
+/**
+* @param array $validatedData
+*
+* @return array
+*/
+public function conform(array $validatedData)
+{
+//INJECT_CODE_HERE
+
+return [

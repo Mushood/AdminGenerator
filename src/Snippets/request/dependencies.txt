@@ -1,0 +1,2 @@
+use Illuminate\Foundation\Http\FormRequest;
+

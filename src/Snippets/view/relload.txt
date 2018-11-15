@@ -1,0 +1,13 @@
+
+            getOwnermodels() {
+                const vm = this;
+                axios.get(
+                    this.$store.state.url + "/api/admin/ownermodel",
+                    { 'headers': { 'Authorization': "Bearer " + vm.$store.state.user.token } }
+                ).then(response => {
+                    vm.ownermodels = response.data.data;
+                })
+                .catch(function(error) {
+                    miniToastr.error(error.message, "Failure")
+                });
+            },

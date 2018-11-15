@@ -1,0 +1,8 @@
+public function destroy(EntitygeneratorTranslation $entitygeneratorTranslation)
+{
+$entitygenerator = $entitygeneratorTranslation->entitygenerator;
+$entitygenerator->delete();
+
+return response()->json(null, Response::HTTP_NO_CONTENT);
+}
+

@@ -1,0 +1,16 @@
+public function show(EntitygeneratorTranslation $entitygeneratorTranslation)
+{
+$entitygenerator = $entitygeneratorTranslation->entitygenerator;
+
+if (!$entitygenerator->hasTranslation(App::getLocale())) {
+$entitygenerator = fractal($entitygenerator, $this->transformer);
+$entitygenerator->addMeta([ 'type' => 'translation' ]);
+
+return response()->json( $entitygenerator, Response::HTTP_OK );
+}
+
+$entitygenerator = fractal($entitygenerator, $this->transformer);
+$entitygenerator->addMeta([ 'type' => 'success' ]);
+
+return response()->json($entitygenerator, Response::HTTP_OK);
+}

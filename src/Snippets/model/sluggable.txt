@@ -1,0 +1,1 @@
+use Cviebrock\EloquentSluggable\Sluggable;

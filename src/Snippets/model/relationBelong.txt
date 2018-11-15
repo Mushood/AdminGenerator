@@ -1,0 +1,10 @@
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function FUNCTIONNAME()
+    {
+        return $this->belongsTo('App\Models\MODELNAME');
+    }
+

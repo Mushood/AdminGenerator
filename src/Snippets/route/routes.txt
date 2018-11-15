@@ -1,0 +1,6 @@
+Route::get('/entitygenerator','EntitygeneratorController@index')->name('entitygenerator.index');
+Route::post('/entitygenerator','EntitygeneratorController@store')->name('entitygenerator.store');
+Route::get('/entitygenerator/{entitygenerator}','EntitygeneratorController@show')->name('entitygenerator.show');
+Route::get('/entitygenerator/{entitygenerator}/edit','EntitygeneratorController@edit')->name('entitygenerator.edit');
+Route::put('/entitygenerator/{entitygenerator}','EntitygeneratorController@update')->name('entitygenerator.update');
+Route::delete('/entitygenerator/{entitygenerator}','EntitygeneratorController@destroy')->name('entitygenerator.destroy');

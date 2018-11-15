@@ -1,0 +1,1 @@
+<input id='entitycolumn' type='text' :class="{ 'form-control': true, 'form-danger': errors.first('entitycolumn') }" placeholder='entitycolumn' v-model='entitygenerator.entitycolumn' name='entitycolumn'

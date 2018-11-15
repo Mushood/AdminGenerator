@@ -1,0 +1,10 @@
+public function update(EntitygeneratorValidator $request, Entitygenerator $entitygenerator)
+{
+$validatedEntitygenerator = $request->validated();
+$validatedEntitygenerator = $this->transformer->conform($validatedEntitygenerator['entitygenerator']);
+$entitygenerator->update($validatedEntitygenerator);
+$entitygenerator = fractal($entitygenerator, $this->transformer);
+
+return response()->json($entitygenerator, Response::HTTP_OK);
+}
+

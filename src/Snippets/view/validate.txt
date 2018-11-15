@@ -1,0 +1,4 @@
+v-validate="'required'" />
+<span v-show="errors.has('entitycolumn')" class="help is-danger">{{ errors.first('entitycolumn') }}</span>
+
+                       

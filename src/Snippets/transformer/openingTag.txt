@@ -1,0 +1,2 @@
+class EntitygeneratorTransformer extends TransformerAbstract
+{
