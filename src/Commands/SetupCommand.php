@@ -20,6 +20,10 @@ class SetupCommand extends Command
      */
     protected $description = 'The setup command';
 
+    protected $currentDirectory;
+
+    protected $projectDirectory;
+
     /**
      * Create a new command instance.
      *
@@ -28,6 +32,9 @@ class SetupCommand extends Command
     public function __construct()
     {
         parent::__construct();
+
+        $this->currentDirectory = dirname(__FILE__);
+        $this->projectDirectory = getcwd();
     }
 
     /**
@@ -39,21 +46,28 @@ class SetupCommand extends Command
     {
         $this->info("Sleekcube Setup Beginning");
 
-        $currentDirectory = dirname(__FILE__);
-        $projectDirectory = getcwd();
+        $this->copyMiddleware();
+        $this->createModelsDirectory();
+        $this->createTransformerDirectory();
 
-        //copy locale middleware
-        $source = $currentDirectory . "/../Snippets/middleware/Locale.php";
-        $destination = $projectDirectory . "/app/Http/Middleware/Locale.php";
+        $this->info("Sleekcube Setup Done");
+    }
+
+    private function copyMiddleware()
+    {
+        $source = $this->currentDirectory . "/../Snippets/middleware/Locale.php";
+        $destination = $this->projectDirectory . "/app/Http/Middleware/Locale.php";
         copy($source,$destination);
+    }
 
-        //make models
-        $modelDirectory = $projectDirectory . "/app/Models";
+    private function createModelsDirectory()
+    {
+        $modelDirectory = $this->projectDirectory . "/app/Models";
         if (!is_dir($modelDirectory)) {
             mkdir($modelDirectory);
         }
 
-        $source = $projectDirectory . "/app/User.php";
+        $source = $this->projectDirectory . "/app/User.php";
         $destination = $modelDirectory . "/User.php";
         $file = file_get_contents($source, true);
         $renameNamespace = explode("namespace App;", $file);
@@ -61,13 +75,13 @@ class SetupCommand extends Command
         copy($source,$destination);
         file_put_contents($destination, $renameNamespace);
         unlink($source);
+    }
 
-        //make transformers
-        $transformerDirectory = $projectDirectory . "/app/Transformers";
+    private function createTransformerDirectory()
+    {
+        $transformerDirectory = $this->projectDirectory . "/app/Transformers";
         if (!is_dir($transformerDirectory)) {
             mkdir($transformerDirectory);
         }
-
-        $this->info("Sleekcube Setup Done");
     }
 }
