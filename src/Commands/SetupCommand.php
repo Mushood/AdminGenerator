@@ -46,5 +46,28 @@ class SetupCommand extends Command
         $source = $currentDirectory . "/../Snippets/middleware/Locale.php";
         $destination = $projectDirectory . "/app/Http/Middleware/Locale.php";
         copy($source,$destination);
+
+        //make models
+        $modelDirectory = $projectDirectory . "/app/Models";
+        if (!is_dir($modelDirectory)) {
+            mkdir($modelDirectory);
+        }
+
+        $source = $projectDirectory . "/app/User.php";
+        $destination = $modelDirectory . "/User.php";
+        $file = file_get_contents($source, true);
+        $renameNamespace = explode("namespace App;", $file);
+        $renameNamespace = $renameNamespace[0] . "namespace App\Models;" . $renameNamespace[1];
+        copy($source,$destination);
+        file_put_contents($destination, $renameNamespace);
+        unlink($source);
+
+        //make transformers
+        $transformerDirectory = $projectDirectory . "/app/Transformers";
+        if (!is_dir($transformerDirectory)) {
+            mkdir($transformerDirectory);
+        }
+
+        $this->info("Sleekcube Setup Done");
     }
 }
