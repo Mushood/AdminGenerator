@@ -50,6 +50,7 @@ class SetupCommand extends Command
         $this->createModelsDirectory();
         $this->createTransformerDirectory();
         $this->createRequestDirectory();
+        $this->addToApiRoutes();
 
         $this->info("Sleekcube Setup Done");
     }
@@ -92,5 +93,19 @@ class SetupCommand extends Command
         if (!is_dir($requestDirectory)) {
             mkdir($requestDirectory);
         }
+    }
+
+    private function addToApiRoutes()
+    {
+        $boilerplate = "\n
+        Route::group(array('prefix' => 'admin','middleware' => ['auth:api','admin','locale']), function () {
+            Route::get('/', 'HomeController@setup')->name('admin.setup');
+            
+            //INJECT_ROUTES_HERE
+        });";
+
+        $source = $this->projectDirectory . "/routes/api.php";
+        $file = file_get_contents($source, true);
+        file_put_contents($source, $file . $boilerplate);
     }
 }
