@@ -60,6 +60,10 @@ class SetupCommand extends Command
         $source = $this->currentDirectory . "/../Snippets/middleware/Locale.php";
         $destination = $this->projectDirectory . "/app/Http/Middleware/Locale.php";
         copy($source,$destination);
+
+        $source = $this->currentDirectory . "/../Snippets/middleware/Admin.php";
+        $destination = $this->projectDirectory . "/app/Http/Middleware/Admin.php";
+        copy($source,$destination);
     }
 
     private function createModelsDirectory()
