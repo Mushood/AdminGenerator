@@ -62,7 +62,7 @@ abstract class Generator implements GeneratorInterface
      */
     public function getSnippetDirectory($type)
     {
-        return base_path() . "/snippets/" .  $type;
+        return dirname(__FILE__) . "/../../Snippets/" .  $type;
     }
 
     /**
