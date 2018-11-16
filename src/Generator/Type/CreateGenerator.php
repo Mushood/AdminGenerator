@@ -95,7 +95,8 @@ abstract class CreateGenerator implements GeneratorInterface
     {
         $file = $this->writeClassClosingTag($file);
         fclose($file);
-        exec('php php-cs-fixer-v2.phar fix ' . $this->getFilePath($translationConfigs));
+        $path = dirname(__FILE__) . "/../../../";
+        exec('php ' . $path . 'php-cs-fixer-v2.phar fix ' . $this->getFilePath($translationConfigs));
 
         return true;
     }
@@ -214,7 +215,7 @@ abstract class CreateGenerator implements GeneratorInterface
      */
     public function getSnippetDirectory($type)
     {
-        return base_path() . "/snippets/" .  $type;
+        return dirname(__FILE__) . "/../../Snippets/" .  $type;
     }
 
     /**
