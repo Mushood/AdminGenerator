@@ -51,6 +51,7 @@ class SetupCommand extends Command
         $this->createTransformerDirectory();
         $this->createRequestDirectory();
         $this->addToApiRoutes();
+        $this->copyAssets();
 
         $this->info("Sleekcube Setup Done");
     }
@@ -111,5 +112,13 @@ class SetupCommand extends Command
         $source = $this->projectDirectory . "/routes/api.php";
         $file = file_get_contents($source, true);
         file_put_contents($source, $file . $boilerplate);
+    }
+
+    private function copyAssets()
+    {
+        $source = $this->currentDirectory . "/../Snippets/assets";
+        $destination = $this->projectDirectory . "/resources/assets";
+        $command = "cp -R " . $source . " " . $destination;
+        exec($command);
     }
 }
