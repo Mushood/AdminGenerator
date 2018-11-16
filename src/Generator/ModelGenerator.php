@@ -4,6 +4,7 @@ namespace Sleekcube\AdminGenerator\Generator;
 
 use Sleekcube\AdminGenerator\Helpers\StringManipulator;
 use Sleekcube\AdminGenerator\Helpers\Pluraliser;
+use Illuminate\Support\Facades\Schema;
 
 class ModelGenerator extends CreateGenerator
 {
@@ -102,7 +103,7 @@ class ModelGenerator extends CreateGenerator
             $boilerplate = $this->replaceBySnippet('model', self::SNIPPETS['slugDependClass']);
         }
 
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table));
         foreach ($columns as $key => $column) {
             $found = false;
             if (!in_array($column,self::UNFILLABLE)) {
@@ -163,7 +164,7 @@ class ModelGenerator extends CreateGenerator
     {
         $boilerplate = "protected $" . "fillable = [";
 
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table));
         foreach ($columns as $key => $column) {
             if (!in_array($column,self::UNFILLABLE)) {
                 $boilerplate .= "'" . $column . "', ";
@@ -181,7 +182,7 @@ class ModelGenerator extends CreateGenerator
     {
         $boilerplate = "protected $" . "translatedAttributes = [";
 
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table . "_translation"));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table . "_translation")); dd($columns);
         foreach ($columns as $key => $column) {
             if (!in_array($column,self::UNFILLABLE) && $column != $this->table . "_id") {
                 $boilerplate .= "'" . $column . "', ";
@@ -212,7 +213,7 @@ class ModelGenerator extends CreateGenerator
     {
         $indexes = $this->getIndexes();
 
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table));
         foreach ($columns as $key => $column) {
             if (!in_array($column,self::IGNORED_INDEXES) && in_array($column,$indexes)) {
                 $functionName = $this->getOwnerModelName($column);

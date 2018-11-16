@@ -2,7 +2,8 @@
 
 namespace Sleekcube\AdminGenerator\Generator\Traits;
 
-use App\Helpers\Pluraliser;
+use Sleekcube\AdminGenerator\Helpers\Pluraliser;
+use Illuminate\Support\Facades\Schema;
 
 trait RelationSchemaTrait
 {
@@ -16,8 +17,8 @@ trait RelationSchemaTrait
             $table = $this->table;
         }
 
-        $dbTable = \Schema::getConnection()->getTablePrefix(). Pluraliser::getPlural($table);
-        $tableDetails = \Schema::getConnection()->getDoctrineSchemaManager()->listTableDetails($dbTable);
+        $dbTable = Schema::getConnection()->getTablePrefix(). Pluraliser::getPlural($table);
+        $tableDetails = Schema::getConnection()->getDoctrineSchemaManager()->listTableDetails($dbTable);
         $tableIndexes = $tableDetails->getIndexes();
         $indexNames = [];
         foreach ($tableIndexes as $index) {

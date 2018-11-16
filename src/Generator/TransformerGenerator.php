@@ -3,6 +3,7 @@
 namespace Sleekcube\AdminGenerator\Generator;
 
 use Sleekcube\AdminGenerator\Helpers\Pluraliser;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Class TransformerGenerator
@@ -127,7 +128,7 @@ class TransformerGenerator extends CreateGenerator
     private function addTransformRule($boilerplate, $table)
     {
         $indexes = $this->getIndexes($table);
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($table));
 
         foreach ($columns as $key => $column) {
             if (in_array($column, $indexes) && !in_array($column,self::IGNORED_INDEXES) && $this->table != $this->getOwnerModelName($column)) {
@@ -167,7 +168,7 @@ class TransformerGenerator extends CreateGenerator
     private function addConformRule($boilerplate, $table)
     {
         $indexes = $this->getIndexes($table);
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($table));
         foreach ($columns as $key => $column) {
             if (in_array($column, $indexes) && !in_array($column,self::IGNORED_INDEXES) && $this->table != $this->getOwnerModelName($column)) {
                 $boilerplate .= "\t\t\t'" . $column . "' => $" . $this->getOwnerModelName($column) . "->id, \n";

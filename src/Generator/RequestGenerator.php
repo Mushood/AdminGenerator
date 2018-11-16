@@ -3,6 +3,7 @@
 namespace Sleekcube\AdminGenerator\Generator;
 
 use Sleekcube\AdminGenerator\Helpers\Pluraliser;
+use Illuminate\Support\Facades\Schema;
 
 class RequestGenerator extends CreateGenerator
 {
@@ -126,7 +127,7 @@ class RequestGenerator extends CreateGenerator
     private function addColumnRule($boilerplate, $table)
     {
         $indexes = $this->getIndexes($table);
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($table));
 
         foreach ($columns as $key => $column) {
             if (!in_array($column,self::UNFILLABLE) && $this->table != $this->getOwnerModelName($column)) {
@@ -152,10 +153,10 @@ class RequestGenerator extends CreateGenerator
      */
     private function addRule($boilerplate, $column, $table)
     {
-        if (\Schema::getConnection()->getDoctrineColumn(Pluraliser::getPlural($table), $column)->getNotnull()){
+        if (Schema::getConnection()->getDoctrineColumn(Pluraliser::getPlural($table), $column)->getNotnull()){
             $boilerplate .= "Required";
 
-            switch (\Schema::getColumnType(Pluraliser::getPlural($table), $column)) {
+            switch (Schema::getColumnType(Pluraliser::getPlural($table), $column)) {
                 case "string":
                     $boilerplate .= "|Min:0|Max:255|String";
                     break;

@@ -5,6 +5,7 @@ namespace Sleekcube\AdminGenerator\Generator;
 use Sleekcube\AdminGenerator\Helpers\StringManipulator;
 use Sleekcube\AdminGenerator\Helpers\Pluraliser;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 
 class ViewGenerator extends ModifyGenerator
 {
@@ -24,6 +25,7 @@ class ViewGenerator extends ModifyGenerator
     public function generate()
     {
         $path = base_path() . $this->directory . $this->table;
+
         if (!\File::isDirectory($path)) {
             File::makeDirectory($path);
         }
@@ -77,7 +79,7 @@ class ViewGenerator extends ModifyGenerator
      */
     private function createListFile()
     {
-        $source = base_path() . '/snippets/view/index.vue';
+        $source = dirname(__FILE__) . '/../Snippets/view/index.vue';
         $destination = $this->getListFilePath();
 
         copy($source, $destination);
@@ -89,7 +91,7 @@ class ViewGenerator extends ModifyGenerator
 
     private function createListFileTranslation()
     {
-        $source = base_path() . '/snippets/view/indexTranslation.vue';
+        $source = dirname(__FILE__) . '/../Snippets/view/indexTranslation.vue';
         $destination = $this->getListFilePath();
 
         copy($source, $destination);
@@ -109,9 +111,9 @@ class ViewGenerator extends ModifyGenerator
         $content = explode(self::KEY_INJECTION.'1', $content);
         $content[0] .= "<thead>\n<tr>\n<th scope='col'>#</th>\n";
 
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table));
         if (isset($translationConfigs['isTranslation']) && $translationConfigs['isTranslation']) {
-            $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table . '_translation'));
+            $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table . '_translation'));
         }
 
         foreach ($columns as $key => $column) {
@@ -142,9 +144,9 @@ class ViewGenerator extends ModifyGenerator
         $content[0] .= "<td scope='row'>{{ index+1 }}</td>\n";
 
 
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table));
         if (isset($translationConfigs['isTranslation']) && $translationConfigs['isTranslation']) {
-            $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table . '_translation'));
+            $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table . '_translation'));
         }
 
         foreach ($columns as $key => $column) {
@@ -187,7 +189,7 @@ class ViewGenerator extends ModifyGenerator
      */
     private function createCreateFile()
     {
-        $source = base_path() . '/snippets/view/create.vue';
+        $source = dirname(__FILE__) . '/../Snippets/view/create.vue';
         $destination = $this->getCreateFilePath();
 
         copy($source, $destination);
@@ -199,7 +201,7 @@ class ViewGenerator extends ModifyGenerator
 
     private function createCreateFileTranslation()
     {
-        $source = base_path() . '/snippets/view/createTranslation.vue';
+        $source = dirname(__FILE__) . '/../Snippets/view/createTranslation.vue';
         $destination = $this->getCreateFilePath();
 
         copy($source, $destination);
@@ -229,7 +231,7 @@ class ViewGenerator extends ModifyGenerator
         $content = explode(self::KEY_INJECTION.'1', $content);
 
         $indexes = $this->getIndexes();
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table));
         foreach ($columns as $key => $column) {
             if (!in_array($column,self::UNFILLABLE)) {
                 $content[0] .= "<div class='row_input'>\n";
@@ -263,7 +265,7 @@ class ViewGenerator extends ModifyGenerator
         $content = explode(self::KEY_INJECTION.'1', $content);
 
         $indexes = $this->getIndexes($this->table . '_translation');
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table . '_translation'));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table . '_translation'));
         $translationConfigs['isTranslatedModel'] = true;
         foreach ($columns as $key => $column) {
             if (!in_array($column,self::UNFILLABLE) && $this->table != $this->getOwnerModelName($column)) {
@@ -289,11 +291,11 @@ class ViewGenerator extends ModifyGenerator
     private function addField($column, $content, $translationConfigs = [])
     {
         if (isset($translationConfigs['isTranslatedModel']) && $translationConfigs['isTranslatedModel']) {
-            $type =  \Schema::getColumnType(Pluraliser::getPlural($this->table . "_translation"), $column);
-            $isNotNull =  \Schema::getConnection()->getDoctrineColumn(Pluraliser::getPlural($this->table . "_translation"), $column)->getNotnull();
+            $type =  Schema::getColumnType(Pluraliser::getPlural($this->table . "_translation"), $column);
+            $isNotNull =  Schema::getConnection()->getDoctrineColumn(Pluraliser::getPlural($this->table . "_translation"), $column)->getNotnull();
         } else {
-            $type =  \Schema::getColumnType(Pluraliser::getPlural($this->table), $column);
-            $isNotNull =  \Schema::getConnection()->getDoctrineColumn(Pluraliser::getPlural($this->table), $column)->getNotnull();
+            $type =  Schema::getColumnType(Pluraliser::getPlural($this->table), $column);
+            $isNotNull =  Schema::getConnection()->getDoctrineColumn(Pluraliser::getPlural($this->table), $column)->getNotnull();
         }
 
         switch ($type) {
@@ -339,9 +341,9 @@ class ViewGenerator extends ModifyGenerator
     private function addRelationField($column, $content, $translationConfigs = [])
     {
         if (isset($translationConfigs['isTranslatedModel']) && $translationConfigs['isTranslatedModel']) {
-            $isNotNull =  \Schema::getConnection()->getDoctrineColumn(Pluraliser::getPlural($this->table . "_translation"), $column)->getNotnull();
+            $isNotNull =  Schema::getConnection()->getDoctrineColumn(Pluraliser::getPlural($this->table . "_translation"), $column)->getNotnull();
         } else {
-            $isNotNull =  \Schema::getConnection()->getDoctrineColumn(Pluraliser::getPlural($this->table), $column)->getNotnull();
+            $isNotNull =  Schema::getConnection()->getDoctrineColumn(Pluraliser::getPlural($this->table), $column)->getNotnull();
         }
 
         $name = $this->getOwnerModelName($column);
@@ -379,7 +381,7 @@ class ViewGenerator extends ModifyGenerator
         $content = explode(self::KEY_INJECTION.'2', $content);
 
         $content[0] .= $this->table . ": {\n";
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table));
         $indexes = $this->getIndexes();
         foreach ($columns as $key => $column) {
             if (!in_array($column,self::UNFILLABLE)) {
@@ -393,7 +395,7 @@ class ViewGenerator extends ModifyGenerator
         $content[0] .= "},\n";
 
         $content[0] .= "original: {\n";
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table));
         foreach ($columns as $key => $column) {
             if (!in_array($column,self::UNFILLABLE)) {
                 if (in_array($column, $indexes) && !in_array($column,self::IGNORED_INDEXES)) {
@@ -418,7 +420,7 @@ class ViewGenerator extends ModifyGenerator
         $content = file_get_contents($destination);
         $content = explode(self::KEY_INJECTION.'3', $content);
 
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table));
         $indexes = $this->getIndexes();
         foreach ($columns as $key => $column) {
             if (!in_array($column,self::UNFILLABLE)) {
@@ -448,7 +450,7 @@ class ViewGenerator extends ModifyGenerator
         $content = file_get_contents($destination);
         $content = explode(self::KEY_INJECTION.'8', $content);
 
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table . "_translation"));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table . "_translation"));
         $indexes = $this->getIndexes($this->table . "_translation");
         foreach ($columns as $key => $column) {
             if (!in_array($column,self::UNFILLABLE) && $this->table != $this->getOwnerModelName($column)) {
@@ -473,7 +475,7 @@ class ViewGenerator extends ModifyGenerator
         $content = file_get_contents($destination);
         $content = explode(self::KEY_INJECTION.'4', $content);
 
-        $columns = \Schema::getColumnListing(Pluraliser::getPlural($this->table));
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table));
         $indexes = $this->getIndexes();
         foreach ($columns as $key => $column) {
             if (!in_array($column,self::UNFILLABLE)) {
