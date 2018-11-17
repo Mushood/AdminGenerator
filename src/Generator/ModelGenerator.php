@@ -182,7 +182,7 @@ class ModelGenerator extends CreateGenerator
     {
         $boilerplate = "protected $" . "translatedAttributes = [";
 
-        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table . "_translation")); dd($columns);
+        $columns = Schema::getColumnListing(Pluraliser::getPlural($this->table . "_translation"));
         foreach ($columns as $key => $column) {
             if (!in_array($column,self::UNFILLABLE) && $column != $this->table . "_id") {
                 $boilerplate .= "'" . $column . "', ";
@@ -222,10 +222,10 @@ class ModelGenerator extends CreateGenerator
                 $boilerplate = str_replace('MODELNAME', ucwords($functionName), $boilerplate);
 
                 fwrite($file, $boilerplate);
-
-                return $file;
             }
         }
+
+        return $file;
     }
 
     public function getRelationPath()
