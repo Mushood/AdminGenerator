@@ -1,6 +1,7 @@
 {
     "name": "sleekcube/admingenerator",
     "description": "A package that creates an admin interface for an entity",
+    "license": "MIT",
     "type": "composer-plugin",
     "authors": [
         {
@@ -18,10 +19,10 @@
         "spatie/laravel-permission": "^2.12"
     },
     "extra": {
-	"laravel": {
-	    "providers": [
-		      "Sleekcube\\AdminGenerator\\AdminGeneratorServiceProvider"
-	     ]
-	}
-    },
+        "laravel": {
+            "providers": [
+                  "Sleekcube\\AdminGenerator\\AdminGeneratorServiceProvider"
+             ]
+        }
+    }
 }
