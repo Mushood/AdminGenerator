@@ -60,6 +60,7 @@ class SetupCommand extends Command
         $this->copyViews();
         $this->copyRoutes();
         $this->copyYarn();
+        $this->install();
 
         $this->info("Sleekcube Setup Done");
     }
@@ -111,7 +112,7 @@ class SetupCommand extends Command
     private function copyAssets()
     {
         $source = $this->currentDirectory . "/../Snippets/assets";
-        $destination = $this->projectDirectory . "/resources/assets";
+        $destination = $this->projectDirectory . "/resources/";
         $command = "cp -R " . $source . " " . $destination;
         exec($command);
     }
@@ -186,5 +187,12 @@ class SetupCommand extends Command
         $destination = $this->projectDirectory . "/";
         $command = "cp -R " . $source . " " . $destination;
         exec($command);
+    }
+
+    private function install()
+    {
+        exec('yarn install');
+        exec('npm install');
+        exec('npm run production');
     }
 }
