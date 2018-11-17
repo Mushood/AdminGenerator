@@ -52,7 +52,8 @@ class SetupCommand extends Command
         $this->createRequestDirectory();
         $this->addToApiRoutes();
         $this->copyAssets();
-        $this->copyLibrary();*/
+        $this->copyLibrary();
+        $this->copyControllers();*/
 
         $this->info("Sleekcube Setup Done");
     }
@@ -127,6 +128,14 @@ class SetupCommand extends Command
     {
         $source = $this->currentDirectory . "/../Library";
         $destination = $this->projectDirectory . "/app/Library";
+        $command = "cp -R " . $source . " " . $destination;
+        exec($command);
+    }
+
+    private function copyControllers()
+    {
+        $source = $this->currentDirectory . "/../Controllers/*";
+        $destination = $this->projectDirectory . "/app/Http/Controllers";
         $command = "cp -R " . $source . " " . $destination;
         exec($command);
     }
