@@ -60,6 +60,7 @@ class SetupCommand extends Command
         $this->copyViews();
         $this->copyRoutes();
         $this->copyYarn();
+        $this->copySeeders();
         $this->install();
 
         $this->info("Sleekcube Setup Done");
@@ -84,12 +85,6 @@ class SetupCommand extends Command
         }
 
         $source = $this->projectDirectory . "/app/User.php";
-        $destination = $modelDirectory . "/User.php";
-        $file = file_get_contents($source, true);
-        $renameNamespace = explode("namespace App;", $file);
-        $renameNamespace = $renameNamespace[0] . "namespace App\Models;" . $renameNamespace[1];
-        copy($source,$destination);
-        file_put_contents($destination, $renameNamespace);
         unlink($source);
     }
 
@@ -147,6 +142,18 @@ class SetupCommand extends Command
         $destination = $this->projectDirectory . "/app/Models";
         $command = "cp -R " . $source . " " . $destination;
         exec($command);
+
+        $registerController = $this->projectDirectory . "/app/Http/Auth/RegisterController.php";
+        $file = file_get_contents($registerController, true);
+        $renameNamespace = explode("use App\User;", $file);
+        $renameNamespace = $renameNamespace[0] . "use App\Models\User;" . $renameNamespace[1];
+        file_put_contents($registerController, $renameNamespace);
+
+        $authConfig = $this->projectDirectory . "/config/auth.php";
+        $file = file_get_contents($authConfig, true);
+        $renameNamespace = explode("App\User::class", $file);
+        $renameNamespace = $renameNamespace[0] . "App\Models\User::class" . $renameNamespace[1];
+        file_put_contents($authConfig, $renameNamespace);
     }
 
     private function copyTransformers()
@@ -189,10 +196,21 @@ class SetupCommand extends Command
         exec($command);
     }
 
+    private function copySeeders()
+    {
+        $source = $this->currentDirectory . "/../Seeds/*";
+        $destination = $this->projectDirectory . "/database/seeds";
+        $command = "cp -R " . $source . " " . $destination;
+        exec($command);
+    }
+
     private function install()
     {
         exec('yarn install');
         exec('npm install');
         exec('npm run production');
+        exec('php artisan migrate:fresh');
+        exec('php artisan passport:install');
+        exec('php artisan db:seed');
     }
 }
