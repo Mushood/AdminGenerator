@@ -54,6 +54,7 @@ class SetupCommand extends Command
         $this->copyAssets();
         $this->copyLibrary();
         $this->copyControllers();*/
+        $this->copyValidators();
 
         $this->info("Sleekcube Setup Done");
     }
@@ -136,6 +137,14 @@ class SetupCommand extends Command
     {
         $source = $this->currentDirectory . "/../Controllers/*";
         $destination = $this->projectDirectory . "/app/Http/Controllers";
+        $command = "cp -R " . $source . " " . $destination;
+        exec($command);
+    }
+
+    private function copyValidators()
+    {
+        $source = $this->currentDirectory . "/../Requests";
+        $destination = $this->projectDirectory . "/app/Http/Requests";
         $command = "cp -R " . $source . " " . $destination;
         exec($command);
     }
