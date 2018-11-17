@@ -17,6 +17,12 @@
         "spatie/laravel-fractal": "^5.4",
         "spatie/laravel-permission": "^2.12"
     },
+    "autoload": {
+        "psr-4": {
+            "Sleekcube\\AdminGenerator\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
     "extra": {
         "laravel": {
             "providers": [
