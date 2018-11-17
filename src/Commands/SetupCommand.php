@@ -53,8 +53,10 @@ class SetupCommand extends Command
         $this->addToApiRoutes();
         $this->copyAssets();
         $this->copyLibrary();
-        $this->copyControllers();*/
-        $this->copyValidators();
+        $this->copyControllers();
+        $this->copyValidators();*/
+        $this->copyModels();
+        $this->copyTransformers();
 
         $this->info("Sleekcube Setup Done");
     }
@@ -145,6 +147,22 @@ class SetupCommand extends Command
     {
         $source = $this->currentDirectory . "/../Requests";
         $destination = $this->projectDirectory . "/app/Http/Requests";
+        $command = "cp -R " . $source . " " . $destination;
+        exec($command);
+    }
+
+    private function copyModels()
+    {
+        $source = $this->currentDirectory . "/../Models/*";
+        $destination = $this->projectDirectory . "/app/Models";
+        $command = "cp -R " . $source . " " . $destination;
+        exec($command);
+    }
+
+    private function copyTransformers()
+    {
+        $source = $this->currentDirectory . "/../Transformers/*";
+        $destination = $this->projectDirectory . "/app/Transformers";
         $command = "cp -R " . $source . " " . $destination;
         exec($command);
     }
