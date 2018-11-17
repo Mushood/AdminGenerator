@@ -28,34 +28,6 @@ const layout = [
         }
     },
     {
-        path: '/category',
-        component: resolve => require(['pages/category/index'], resolve),
-        meta: {
-            title: "Categories",
-        }
-    },
-    {
-        path: '/blog',
-        component: resolve => require(['pages/blog/index'], resolve),
-        meta: {
-            title: "Blog",
-        }
-    },
-    {
-        path: '/blog-create',
-        component: resolve => require(['pages/blog/create'], resolve),
-        meta: {
-            title: "Create Blog",
-        }
-    },
-    {
-        path: '/blog/:slug',
-        component: resolve => require(['pages/blog/create'], resolve),
-        meta: {
-            title: "Edit Blog",
-        }
-    },
-    {
         path: '/page',
         component: resolve => require(['pages/page/index'], resolve),
         meta: {

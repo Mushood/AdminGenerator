@@ -143,7 +143,7 @@ class SetupCommand extends Command
         $command = "cp -R " . $source . " " . $destination;
         exec($command);
 
-        $registerController = $this->projectDirectory . "/app/Http/Auth/RegisterController.php";
+        $registerController = $this->projectDirectory . "/app/Http/Controllers/Auth/RegisterController.php";
         $file = file_get_contents($registerController, true);
         $renameNamespace = explode("use App\User;", $file);
         $renameNamespace = $renameNamespace[0] . "use App\Models\User;" . $renameNamespace[1];

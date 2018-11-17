@@ -10,16 +10,6 @@ const menu_items = [
         icon: "fa fa-file-o"
     },
     {
-        name: "Categories",
-        link: '/category',
-        icon: "fa fa-list"
-    },
-    {
-        name: "Blogs",
-        link: '/blog',
-        icon: "fa fa-pencil-square-o"
-    },
-    {
         name: "Pages",
         link: '/page',
         icon: "fa fa-clone"
