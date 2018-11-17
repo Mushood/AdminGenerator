@@ -50,7 +50,6 @@ class SetupCommand extends Command
         $this->createModelsDirectory();
         $this->createTransformerDirectory();
         $this->createRequestDirectory();
-        $this->addToApiRoutes();
         $this->copyAssets();
         $this->copyLibrary();
         $this->copyControllers();
@@ -59,6 +58,7 @@ class SetupCommand extends Command
         $this->copyTransformers();
         $this->copyMigrations();*/
         $this->copyViews();
+        $this->copyRoutes();
 
         $this->info("Sleekcube Setup Done");
     }
@@ -105,20 +105,6 @@ class SetupCommand extends Command
         if (!is_dir($requestDirectory)) {
             mkdir($requestDirectory);
         }
-    }
-
-    private function addToApiRoutes()
-    {
-        $boilerplate = "\n
-        Route::group(array('prefix' => 'admin','middleware' => ['auth:api','admin','locale']), function () {
-            Route::get('/', 'HomeController@setup')->name('admin.setup');
-            
-            //INJECT_ROUTES_HERE
-        });";
-
-        $source = $this->projectDirectory . "/routes/api.php";
-        $file = file_get_contents($source, true);
-        file_put_contents($source, $file . $boilerplate);
     }
 
     private function copyAssets()
@@ -181,6 +167,14 @@ class SetupCommand extends Command
     {
         $source = $this->currentDirectory . "/../Views/*";
         $destination = $this->projectDirectory . "/resources/views";
+        $command = "cp -R " . $source . " " . $destination;
+        exec($command);
+    }
+
+    private function copyRoutes()
+    {
+        $source = $this->currentDirectory . "/../Routes/*";
+        $destination = $this->projectDirectory . "/routes";
         $command = "cp -R " . $source . " " . $destination;
         exec($command);
     }
