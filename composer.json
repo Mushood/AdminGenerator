@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Sleekcube\\AdminGenerator\\": "src"
+          "Sleekcube\\AdminGenerator\\": "sleekcube/admingenerator/src"
         }
     },
     "minimum-stability": "dev",
