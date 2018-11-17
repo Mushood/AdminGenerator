@@ -2,7 +2,6 @@
     "name": "sleekcube/admingenerator",
     "description": "A package that creates an admin interface for an entity",
     "license": "MIT",
-    "type": "composer-plugin",
     "authors": [
         {
             "name": "mushood",
