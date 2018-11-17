@@ -56,8 +56,9 @@ class SetupCommand extends Command
         $this->copyControllers();
         $this->copyValidators();
         $this->copyModels();
-        $this->copyTransformers();*/
-        $this->copyMigrations();
+        $this->copyTransformers();
+        $this->copyMigrations();*/
+        $this->copyViews();
 
         $this->info("Sleekcube Setup Done");
     }
@@ -172,6 +173,14 @@ class SetupCommand extends Command
     {
         $source = $this->currentDirectory . "/../Migrations/*";
         $destination = $this->projectDirectory . "/database/migrations";
+        $command = "cp -R " . $source . " " . $destination;
+        exec($command);
+    }
+
+    private function copyViews()
+    {
+        $source = $this->currentDirectory . "/../Views/*";
+        $destination = $this->projectDirectory . "/resources/views";
         $command = "cp -R " . $source . " " . $destination;
         exec($command);
     }
