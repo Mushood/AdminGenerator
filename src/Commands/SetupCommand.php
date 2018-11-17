@@ -46,7 +46,7 @@ class SetupCommand extends Command
     {
         $this->info("Sleekcube Setup Beginning");
 
-        /*$this->copyMiddleware();
+        $this->copyMiddleware();
         $this->createModelsDirectory();
         $this->createTransformerDirectory();
         $this->createRequestDirectory();
@@ -56,9 +56,10 @@ class SetupCommand extends Command
         $this->copyValidators();
         $this->copyModels();
         $this->copyTransformers();
-        $this->copyMigrations();*/
+        $this->copyMigrations();
         $this->copyViews();
         $this->copyRoutes();
+        $this->copyYarn();
 
         $this->info("Sleekcube Setup Done");
     }
@@ -175,6 +176,14 @@ class SetupCommand extends Command
     {
         $source = $this->currentDirectory . "/../Routes/*";
         $destination = $this->projectDirectory . "/routes";
+        $command = "cp -R " . $source . " " . $destination;
+        exec($command);
+    }
+
+    private function copyYarn()
+    {
+        $source = $this->currentDirectory . "/../Yarn/*";
+        $destination = $this->projectDirectory . "/";
         $command = "cp -R " . $source . " " . $destination;
         exec($command);
     }
