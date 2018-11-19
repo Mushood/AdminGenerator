@@ -62,6 +62,7 @@ class SetupCommand extends Command
         $this->copyYarn();
         $this->copySeeders();
         $this->install();
+        $this->middlewareRegister();
 
         $this->info("Sleekcube Setup Done");
     }
@@ -209,8 +210,21 @@ class SetupCommand extends Command
         exec('yarn install');
         exec('npm install');
         exec('npm run production');
-        exec('php artisan migrate:fresh');
-        exec('php artisan passport:install');
-        exec('php artisan db:seed');
+        exec('composer dump-autoload');
+        $this->call('migrate:fresh');
+        $this->call('passport:install');
+        $this->call('db:seed');
+    }
+
+    private function middlewareRegister()
+    {
+        $source = $this->projectDirectory . "/app/Http/Kernel.php";
+        $file = file_get_contents($source, true);
+        $delimeter = "'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,";
+        $string = explode($delimeter, $file);
+        $string = $string[0] . $delimeter .
+            "\n'admin' => \App\Http\Middleware\Admin::class, \n'locale' => \App\Http\Middleware\Locale::class," .
+            $string[1] ;
+        file_put_contents($source, $string);
     }
 }
