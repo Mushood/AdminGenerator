@@ -61,8 +61,8 @@ class SetupCommand extends Command
         $this->copyRoutes();
         $this->copyYarn();
         $this->copySeeders();
-        $this->install();
         $this->middlewareRegister();
+        $this->install();
 
         $this->info("Sleekcube Setup Done");
     }
@@ -211,6 +211,8 @@ class SetupCommand extends Command
         exec('npm install');
         exec('npm run production');
         exec('composer dump-autoload');
+        $this->call('config:cache');
+        $this->call('storage:link');
         $this->call('migrate:fresh');
         $this->call('passport:install');
         $this->call('db:seed');
