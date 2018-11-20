@@ -210,12 +210,6 @@ class SetupCommand extends Command
         exec('yarn install');
         exec('npm install');
         exec('npm run production');
-        exec('composer dump-autoload');
-        $this->call('config:cache');
-        $this->call('storage:link');
-        $this->call('migrate:fresh');
-        $this->call('passport:install');
-        $this->call('db:seed');
     }
 
     private function middlewareRegister()
