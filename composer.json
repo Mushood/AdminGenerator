@@ -23,7 +23,7 @@
             "src"
         ],
         "psr-4": {
-          "Sleekcube\\AdminGenerator\\": "src/"
+          "Sleekcube\\AdminGenerator\\": "src"
         }
     },
     "minimum-stability": "dev",
