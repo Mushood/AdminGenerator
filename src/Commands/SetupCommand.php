@@ -131,7 +131,7 @@ class SetupCommand extends Command
 
     private function copyValidators()
     {
-        $source = $this->currentDirectory . "/../Requests";
+        $source = $this->currentDirectory . "/../Requests/*";
         $destination = $this->projectDirectory . "/app/Http/Requests";
         $command = "cp -R " . $source . " " . $destination;
         exec($command);
