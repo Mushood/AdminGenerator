@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-lg-12">
-            <b-card header="Write new article" header-tag="h4" class="bg-primary-card">
+            <b-card header="Write new entitygenerator" header-tag="h4" class="bg-primary-card">
                 <form @submit.prevent="submitEntitygenerator">
                     <div class="row">
                         <div class="col-sm-12">
