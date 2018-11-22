@@ -16,11 +16,16 @@ class AdminGeneratorServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Commands\SetupCommand::class,
+                Commands\SchedulerCommand::class,
                 Commands\GenerateSingular::class,
                 Commands\GenerateBelongTo::class,
                 Commands\GenerateTranslation::class,
             ]);
         }
+
+        $this->publishes([
+            __DIR__.'/Config/sleekcube.php' => config_path('sleekcube.php'),
+        ]);
     }
 
     /**
