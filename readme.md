@@ -162,11 +162,11 @@ php artisan generate:translation blog;
 
 Recompile your assets and checkout the following urls:
 
-/admin/tag
-/admin/article
-/admin/blog
+- /admin/tag
+- /admin/article
+- /admin/blog
 
-~~Hazza~~
+***Hazza***
 
 ## Constraints
 As a security feature, the id of the model is masked from the front. The mapping is always done using slugs which means that the model always need to have a string which will be used as the source for the slug generation.
