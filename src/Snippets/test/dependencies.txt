@@ -1,0 +1,2 @@
+use Faker\Generator as Faker;
+

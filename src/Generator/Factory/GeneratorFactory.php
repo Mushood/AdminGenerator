@@ -23,6 +23,10 @@ class GeneratorFactory implements GeneratorFactoryInterface
                 $generator = new TestGenerator($table, $directory, $extension);
                 break;
 
+            case "factory":
+                $generator = new FactoryGenerator($table, $directory, $extension);
+                break;
+
             case "transformer":
                 $generator = new TransformerGenerator($table, $directory, $extension);
                 break;

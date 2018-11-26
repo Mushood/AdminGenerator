@@ -1,0 +1,2 @@
+$factory->define(\App\Models\Entitygenerator::class, function (Faker $faker) {
+    return [

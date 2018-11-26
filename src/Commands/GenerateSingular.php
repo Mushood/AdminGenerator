@@ -28,6 +28,10 @@ class GenerateSingular extends Command
             'directory' => '/tests/Unit/',
             'extension' => 'SimpleTest.php'
         ],
+        'factory' => [
+            'directory' => '/database/factories/',
+            'extension' => 'Factory.php'
+        ],
         'view' => [
             'directory' => '/resources/assets/components/pages/',
             'extension' => '.vue'
