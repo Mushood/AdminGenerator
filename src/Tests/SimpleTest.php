@@ -26,7 +26,8 @@ class EntitygeneratorTest extends TestCase
 
         $this->route = config('app.url') . '/api/admin/entitygenerator';
 
-        $this->entitygenerator = Entitygenerator::find(1);
+        factory(Entitygenerator::class, 1)->create();
+        $this->entitygenerator = Entitygenerator::first();
     }
 
     /**
