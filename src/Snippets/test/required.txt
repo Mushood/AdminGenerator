@@ -1,0 +1,12 @@
+    public function testColumnRequired()
+    {
+        Passport::actingAs(
+            $this->user
+        );
+
+        unset($this->data['column']);
+        $response = $this->post($this->route, array(
+            'entitygenerator' => $this->data
+        ));
+        $response->assertStatus(302);
+    }

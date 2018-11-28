@@ -9,6 +9,8 @@ interface GeneratorInterface
 
     const IGNORED_INDEXES = ['id', 'locale'];
 
+    const KEY_INJECTION = "INJECT_CODE_HERE_";
+
     public function setTable($table);
 
     public function getTable();

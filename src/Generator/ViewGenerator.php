@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Schema;
 
 class ViewGenerator extends ModifyGenerator
 {
-    const KEY_INJECTION = "INJECT_CODE_HERE_";
     const SNIPPETS = [
         'string' => "/string.txt",
         'text' => '/text.txt',
