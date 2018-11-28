@@ -170,14 +170,22 @@ class TransformerGenerator extends CreateGenerator
         $indexes = $this->getIndexes($table);
         $columns = Schema::getColumnListing(Pluraliser::getPlural($table));
         foreach ($columns as $key => $column) {
-            if (in_array($column, $indexes) && !in_array($column,self::IGNORED_INDEXES) && $this->table != $this->getOwnerModelName($column)) {
-                $boilerplate .= "\t\t\t'" . $column . "' => $" . $this->getOwnerModelName($column) . "->id, \n";
+            if (Schema::getConnection()->getDoctrineColumn(Pluraliser::getPlural($table), $column)->getNotnull()) {
+                if (in_array($column, $indexes) && !in_array($column, self::IGNORED_INDEXES) && $this->table != $this->getOwnerModelName($column)) {
+                    $boilerplate .= "\t\t\t'" . $column . "' => $" . $this->getOwnerModelName($column) . "->id, \n";
 
-                $boilerplate = $this->loadRelationBySlug($boilerplate, $column);
-            } else {
-                if (!in_array($column,self::UNFILLABLE) && $this->table != $this->getOwnerModelName($column)) {
-                    $boilerplate .= "\t\t\t'" . $column . "' => $" . "validatedData['" . $column . "'], \n";
+                    $boilerplate = $this->loadRelationBySlug($boilerplate, $column);
+                } else {
+                    if (!in_array($column, self::UNFILLABLE) && $this->table != $this->getOwnerModelName($column)) {
+                        $boilerplate .= "\t\t\t'" . $column . "' => $" . "validatedData['" . $column . "'], \n";
+                    }
                 }
+            } else {
+                // #TODO Care about nullale foreign key
+                if (!in_array($column, self::UNFILLABLE) && $this->table != $this->getOwnerModelName($column)) {
+                    $boilerplate .= "\t\t\t'" . $column . "' => isset($" . "validatedData['" . $column . "']) ? $" . "validatedData['" . $column . "'] : null , \n";
+                }
+
             }
         }
 
